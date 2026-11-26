@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{% block title %}Lost things deserve a way back{% endblock %} – RE:FOUND</title>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head><body>
+<nav class="top" id="nav"><div class="w">
+<a class="logo" href="{{ url_for('home') }}">RE:FOUND</a>
+<ul>{% for ep, label in [('explore','Explore'),('map_page','Map'),('smart_match','Smart Match'),('mine','My RE:FOUND')] %}
+<li><a class="l {{ 'cur' if page == ep }}" href="{{ url_for(ep) }}">{{ label }}</a></li>{% endfor %}</ul>
+<label class="city" title="Choose your city"><span aria-hidden="true">📍</span>
+<select id="city" aria-label="City">{% for c in cities %}<option>{{ c.name }}</option>{% endfor %}</select></label>
+<a class="btn t rep" href="{{ url_for('report') }}">Report an item</a>
+<button class="burger" id="bg" aria-label="Menu">Menu</button></div></nav>
+<main id="top">{% block main %}{% endblock %}
+<footer><div class="w">RE:FOUND · Lost things deserve a way back.</div></footer></main>
+<dialog id="dlg"><div class="dg"><div class="ph" id="dph"></div><div class="t"><span class="st" id="dst"></span><h3 id="dt"></h3><p id="dd"></p><p style="color:var(--mut);margin:12px 0 20px" id="dm"></p>
+<div class="acts"><a class="btn t" id="dc" href="#">Request to claim</a><button class="btn o" id="dx">Close</button></div></div></div></dialog>
+<div class="toast" id="toast" role="status"></div>
+<script src="{{ url_for('static', filename='js/art.js') }}"></script>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+{% block js %}{% endblock %}
+</body></html>

@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block main %}<div class="w"><section class="soon"><h1 style="font-size:clamp(40px,6vw,76px)">{{ title }}</h1>
+<p>This screen is built in step {{ screen }} of the project. Explore is live and connected to the database.</p>
+<a class="btn" href="{{ url_for('explore') }}">Go to Explore</a></section></div>{% endblock %}

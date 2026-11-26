@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block main %}<div class="w">
+<section class="hero"><div>
+<h1>Lost things deserve a way <em>back.</em></h1>
+<p class="sub">Search reports from people in <b data-city>Bengaluru</b>, or tell us what went missing and let Smart Match look for you.</p>
+<form class="ticket" id="sf" role="search" action="{{ url_for('explore') }}"><input id="q" name="q" placeholder="Black leather wallet, keys, blue backpack…" aria-label="Search lost and found items"><button class="btn t" type="submit">Search</button></form>
+<div class="acts"><a class="btn" href="{{ url_for('report', type='lost') }}">I lost something</a><a class="btn o" href="{{ url_for('report', type='found') }}">I found something</a></div>
+<div class="loc"><span id="ls">Location is optional.</span><button id="gps" type="button">Detect my city</button></div></div>
+<div class="art"><div class="arch" id="hero1"></div><div class="sm" id="hero2"></div><div class="cap"><b id="capt"></b><span id="capm"></span></div></div></section>
+<section class="sec" id="gal">
+<div class="hd"><h2>Recently reported in <span data-city>Bengaluru</span></h2><a class="btn o" href="{{ url_for('explore') }}">Open full Explore</a></div>
+<div class="tabs" id="tabs" role="group" aria-label="Categories"></div>
+<div class="flt" id="flt" role="group" aria-label="Status"></div>
+<div class="wall" id="wall"></div><p class="empty" id="empty" hidden></p></section></div>
+<section class="how"><div class="w"><h2>Every report is a way back.</h2>
+<p>Describe it, pin where it happened, and RE:FOUND compares category, keywords and place against every report nearby. Claims are verified by the person who found it.</p>
+<div class="acts"><a class="btn t" href="{{ url_for('smart_match') }}">Try Smart Match</a><a class="btn o" style="color:#f6f1e7;border-color:#f6f1e7" href="{{ url_for('map_page') }}">Explore the map</a></div></div></section>
+{% endblock %}
+{% block js %}<script>
+const g=Gallery({limit:8,onLoad:d=>{const f=d.items[0];if(!f)return;
+ $('#hero1').innerHTML=drawItem(f.kind,'#2d5340');$('#hero2').innerHTML=drawItem('keys','#b8643f');
+ $('#capt').textContent=f.title;$('#capm').textContent=`${f.type==='lost'?'Lost':'Found'} · ${f.area}, ${f.city}`}});
+$('#sf').addEventListener('submit',()=>{const i=document.createElement('input');i.type='hidden';i.name='city';i.value=RF.city;$('#sf').append(i)});
+</script>{% endblock %}

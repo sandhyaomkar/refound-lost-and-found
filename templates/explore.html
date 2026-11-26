@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Explore{% endblock %}
+{% block main %}<div class="w">
+<header class="xh"><h1 style="font-size:clamp(40px,6vw,76px)">Explore</h1>
+<p>Every open report in <b data-city>Bengaluru</b>. Search, narrow by category or status, and open any tag for details.</p>
+<form class="ticket" id="sf" role="search"><input id="q" placeholder="Search by item, place or category…" aria-label="Search items"><button class="btn t" type="submit">Search</button></form></header>
+<section class="sec" style="padding-top:20px">
+<div class="tabs" id="tabs" role="group" aria-label="Categories"></div>
+<div class="bar"><div class="g"><div class="flt" id="flt" style="margin:0" role="group" aria-label="Status"></div>
+<select id="days" aria-label="Reported within"><option value="">Any time</option><option value="1">Last 24 hours</option><option value="7">Last 7 days</option><option value="30">Last 30 days</option></select>
+<select id="sort" aria-label="Sort"><option value="new">Newest first</option><option value="old">Oldest first</option></select></div>
+<span class="cnt" id="count" aria-live="polite"></span></div>
+<div class="wall" id="wall"></div><p class="empty" id="empty" hidden></p>
+<button class="btn o more" id="more" hidden>Show more</button></section></div>
+{% endblock %}
+{% block js %}<script>
+const sp=new URLSearchParams(location.search);
+const g=Gallery({limit:12,sync:true,q:sp.get('q')||'',category:sp.get('category')||'All',type:sp.get('type')||'all',days:sp.get('days')||'',sort:sp.get('sort')||'new'});
+$('#q').value=g.st.q;$('#days').value=g.st.days;$('#sort').value=g.st.sort;
+[...$('#flt').children].forEach(b=>b.setAttribute('aria-pressed',b.textContent.toLowerCase()===g.st.type));
+$('#sf').addEventListener('submit',e=>{e.preventDefault();g.st.q=$('#q').value.trim();g.reset()});
+</script>{% endblock %}
